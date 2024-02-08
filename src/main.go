@@ -1,13 +1,10 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"back/controller"
+)
 
 func main() {
-	r := gin.Default()
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "SUCCESS!!!!SHINSan",
-		})
-	})
-	r.Run()
+	router := controller.GetRouter()
+	router.Run(":8080")
 }
