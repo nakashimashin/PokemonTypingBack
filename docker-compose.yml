@@ -12,7 +12,7 @@ services:
       - db
       - redis
     volumes:
-      - ./src/:/go/src
+      - .:/back
     tty: true
     env_file:
       - .env

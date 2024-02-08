@@ -1,7 +1,7 @@
 FROM golang:1.21-alpine
 
-WORKDIR /go/src
-COPY ./src .
+WORKDIR /back
+COPY go.mod go.sum ./
 
 RUN apk upgrade --update && apk --no-cache add git
 
