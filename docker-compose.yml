@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  back:
+    container_name: back
+    build:
+      context: .
+      dockerfile: ./back.dockerfile
+    ports:
+     - "8080:8080"
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./src/:/go/src
+    tty: true
+    env_file:
+      - .env
+
+  db:
+    container_name: db
+    build: 
+      context: .
+      dockerfile: ./db.dockerfile
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: "pokemon"
+      MYSQL_USER: "shin"
+      MYSQL_PASSWORD: "pokemon"
+    volumes:
+      - type: volume
+        source: mysql_data
+        target: /var/lib/mysql
+    networks:
+      - default
+    
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+      - 6379:6379
+
+networks:
+  default:
+volumes:
+  mysql_data:
